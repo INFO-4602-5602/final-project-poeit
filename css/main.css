@@ -1,0 +1,21 @@
+/* Global Styles */
+
+* {
+  font-family: 'Raleway', 'Open Sans', sans-serif;
+}
+
+
+/* Vis Layout Styles */
+.vis-container {
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  margin: 0.5em auto;
+}
+
+.vis-title {
+  background-color: rgba(0, 0, 0, 0.05);
+  font-family: 'Lato', 'Open Sans', sans-serif;
+  font-size: 1em;
+  letter-spacing: 1px;
+  padding: 0.3em 0.5em;
+  text-transform: uppercase;
+}
