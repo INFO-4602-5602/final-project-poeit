@@ -1,0 +1,13 @@
+/* CSS for Word Blocks Vis */
+
+#wordBlock {
+  padding: 1.2em;
+}
+
+.word-block-1 {
+  fill: rgb(88, 163, 180);
+}
+
+.word-block-2 {
+  fill: rgb(177, 94, 111);
+}
