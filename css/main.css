@@ -7,7 +7,7 @@
 
 /* Vis Layout Styles */
 .vis-container {
-  border: 1px solid rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.4);
   margin: 0.5em auto;
 }
 
@@ -16,6 +16,26 @@
   font-family: 'Lato', 'Open Sans', sans-serif;
   font-size: 1em;
   letter-spacing: 1px;
+  margin: 0 auto;
   padding: 0.3em 0.5em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* Basic Information */
+.info-block {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  padding: 0.5em 1em 1em;
+}
+.info-content {
+  color: rgba(0, 0, 0, 0.75);
+  font-weight: 600;
+}
+.info-label {
+  color: rgba(0, 0, 0, 0.6);
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.75em;
+  letter-spacing: 0.5px;
+  text-align: center;
   text-transform: uppercase;
 }

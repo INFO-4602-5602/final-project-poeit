@@ -11,7 +11,9 @@
 
     <!-- JS Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
     <script src="https://d3js.org/d3.v3.min.js"></script>
   </head>
 
@@ -28,10 +30,19 @@
     <div class="container">
       <div id="checkData"></div>
       <div class="row">
-        <section class="vis-container">
-          <span class="vis-title">Vis 1 Title</span>
-          <div id=""></div>
-        </section>
+        <span class="vis-title col-12">Basic Information</span>
+        <div class="col info-block">
+          <span class="info-label">Title</span>
+          <div id="title" class="info-content"></div>
+        </div>
+        <div class="col info-block">
+          <span class="info-label">Number of Lines</span>
+          <div id="numLines" class="info-content"></div>
+        </div>
+        <div class="col info-block">
+          <span class="info-label">Average Line Length</span>
+          <div id="lineLength" class="info-content"></div>
+        </div>
       </div>
       <div class="row">
         <section class="vis-container">
