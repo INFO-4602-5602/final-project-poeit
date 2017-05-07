@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway|Lato" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/main.css"></link>
     <link rel="stylesheet" type="text/css" href="css/wordblock.css"></link>
+    <link rel="stylesheet" type="text/css" href="css/bubble.css"></link>
 
     <!-- JS Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -57,17 +58,40 @@
         <span class="vis-desc">Each word in a verse is represented by one block.</span>
         <div id="wordBlock"></div>
       </div>
+
+
       <div class="row">
-
-
       <!-- Paige's Container!-->
         <section class="vis-container">
-          <span class="vis-title">Vis 3 Title</span>
-          <div id=""></div>
-        </section>
+          <span class="vis-title">Bubble Frequency</span>
+            <div id="container" class="container">
+              <select id="text-select">
+                <option value="dickinson">Emily Dickinson</option>
+                <option value="whitman">Walt Whitman</option>
+              </select>
+              <header>
+              <h1>Bubble Cloud</h1>
+              <h2>The most frequently used words by:</h2>
+                <h2 id="book-title"></h2>
+              </header>
+              <div id="main" role="main">
+                <div id="vis"></div>
+                <div id="status"></div>
+                <div id="controls">
+                  <h3>Jitter</h3>
+                  <form id="jitter" oninput="output.value = (jitter_input.value / 200).toFixed(3)" >
+                    <input id="jitter_input" type="range" min="0" max="400" value="100" style="width:240px;">
+                    <output name="output" for="input">0.5</output>
+                  </form>
+                </div>
+              </div>
+            </div> <!--! end of #container -->
+          </section>
       </div>
+
     </div>
     <script type="text/javascript" src="js/poemInfo.js"></script>
     <script type="text/javascript" src="js/wordBlock.js"></script>
+    <script type="text/javascript" src="js/bubble.js"></script>
   </body>
 </html>
