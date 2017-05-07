@@ -47,7 +47,6 @@ header {
 
 #bubble-background {
   fill: none;
-  pointer-events: all;
 }
 
 .bubble-node {
