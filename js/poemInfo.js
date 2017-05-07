@@ -1,10 +1,18 @@
 d3.json( "data/dickinson.json", function( error, data ){
-  poemData = data[0];
-  title = data[0].title;
-  numLines = data[0].linecount;
+  const poemData = data[0];
+  const title = data[0].title;
+  const lines = data[0].lines;
+  const numLines = data[0].linecount;
+  let   lineLength = 0;
+  let   avgLineLength;
 
-  console.log(poemData)
+  // calculate average length of each line
+  _.forEach( lines, function( line ){
+    lineLength +=  _.size(line.split(" "));
+  } )
+  avgLineLength = lineLength / numLines;
 
   $( '#title' ).append( title );
   $( '#numLines' ).append( numLines );
+  $( '#avgLineLength' ).append( avgLineLength );
 } )
