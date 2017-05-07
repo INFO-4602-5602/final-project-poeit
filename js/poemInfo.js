@@ -16,5 +16,5 @@ d3.json( "data/whitman.json", function( error, data ){
 
   $( '#title' ).append( title );
   $( '#numLines' ).append( numLines );
-  $( '#avgLineLength' ).append( avgLineLength );
+  $( '#avgLineLength' ).append( avgLineLength + '<span> words</span>' );
 } )

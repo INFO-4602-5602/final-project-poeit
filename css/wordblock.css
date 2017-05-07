@@ -11,3 +11,11 @@
 .word-block-2 {
   fill: rgb(177, 94, 111);
 }
+
+/* Tooltip */
+.word-tooltip {
+  stroke: none;
+  position: absolute;
+  visibility: hidden;
+  z-index: 20;
+}
