@@ -4,6 +4,16 @@
   font-family: 'Raleway', 'Open Sans', sans-serif;
 }
 
+.page-header {
+  line-height: 0.75em;
+  margin-top: 2em;
+}
+.page-nav {
+  margin-bottom: 1em;
+}
+.page-subtitle {
+  font-style: italic;
+}
 
 /* Vis Layout Styles */
 .vis-container {
