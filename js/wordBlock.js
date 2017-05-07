@@ -52,6 +52,4 @@ d3.json( "data/whitman.json", function( error, data ){
                  return tooltip.style('visibility', 'visible')
                } )
   } );
-
-
-} )
+} );

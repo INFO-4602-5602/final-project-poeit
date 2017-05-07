@@ -26,15 +26,6 @@
         <p class="page-subtitle">an exploratory poetry vis</p>
       </header>
 
-      <nav class="nav page-nav justify-content-center">
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-      </nav>
-
       <!-- Basic Information -->
       <div class="row">
         <span class="vis-title col-12">Basic Information</span>
@@ -59,34 +50,27 @@
         <div id="wordBlock"></div>
       </div>
 
-
-      <div class="row">
-      <!-- Paige's Container!-->
-        <section class="vis-container">
-          <span class="vis-title">Bubble Frequency</span>
-            <div id="container" class="container">
-              <select id="text-select">
-                <option value="dickinson">Emily Dickinson</option>
-                <option value="whitman">Walt Whitman</option>
-              </select>
-              <header>
-              <h1>Bubble Cloud</h1>
-              <h2>The most frequently used words by:</h2>
-                <h2 id="book-title"></h2>
-              </header>
-              <div id="main" role="main">
-                <div id="vis"></div>
-                <div id="status"></div>
-                <div id="controls">
-                  <h3>Jitter</h3>
-                  <form id="jitter" oninput="output.value = (jitter_input.value / 200).toFixed(3)" >
-                    <input id="jitter_input" type="range" min="0" max="400" value="100" style="width:240px;">
-                    <output name="output" for="input">0.5</output>
-                  </form>
-                </div>
-              </div>
-            </div> <!--! end of #container -->
-          </section>
+      <!-- Word Bubbles -->
+      <div class="row vis-container">
+        <span class="vis-title col-12">Bubble Frequency</span>
+        <span class="vis-desc col-6">The most frequently used words by <span id="author"></span></span>
+        <div class="dropdown col-6 align-center">
+          <select id="text-select">
+            <option value="dickinson" class="dropdown-item">Emily Dickinson</option>
+            <option value="whitman" class="dropdown-item">Walt Whitman</option>
+          </select>
+        </div>
+        <div class="vis-content">
+          <div id="vis"></div>
+          <span class="vis-desc" id="status"></span>
+          <div id="controls">
+            <p class="info-label"><b>Jitter</b></p>
+            <form id="jitter" oninput="output.value = (jitter_input.value / 200).toFixed(3)" >
+              <input id="jitter_input" type="range" min="0" max="400" value="100" style="width:240px;">
+              <output name="output" for="input">0.5</output>
+            </form>
+          </div>
+        </div>
       </div>
 
     </div>

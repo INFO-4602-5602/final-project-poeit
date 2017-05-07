@@ -19,7 +19,7 @@ Bubbles = function() {
   maxRadius = 65;
   rScale = d3.scale.sqrt().range([0, maxRadius]);
 
-  //abstracted the data value used to size each into its own function. 
+  //abstracted the data value used to size each into its own function.
   rValue = function(d) {
     return parseInt(d.count);
   };
@@ -39,7 +39,7 @@ Bubbles = function() {
   //jitter controls the 'jumpiness' of the collisions
   jitter = 0.5;
 
-  //function to get data in the format we need.  
+  //function to get data in the format we need.
   //currently just get's the count
   transformData = function(rawData) {
     rawData.forEach(function(d) {
@@ -71,7 +71,7 @@ Bubbles = function() {
 
   //The force variable is the force layout controlling the bubbles
   force = d3.layout.force().gravity(0).charge(0).size([width, height]).on("tick", tick);
-  
+
   //Creates new chart function. This is the 'constructor' of our visualization
   chart = function(selection) {
     return selection.each(function(rawData) {
@@ -79,7 +79,7 @@ Bubbles = function() {
 
       //get data in correct format
       data = transformData(rawData);
-	  
+
 	  //setup the radius scale's domain now that
       maxDomainValue = d3.max(data, function(d) {
         return rValue(d);
@@ -100,7 +100,7 @@ Bubbles = function() {
       //label is the container div for all the labels that sit on top of the bubbles
       label = d3.select(this).selectAll("#bubble-labels").data([data]).enter().append("div").attr("id", "bubble-labels");
       update();
-      //see if url includes an id already 
+      //see if url includes an id already
       hashchange();
       return d3.select(window).on("hashchange", hashchange);
     });
@@ -229,9 +229,9 @@ Bubbles = function() {
       return id === idValue(d);
     });
     if (id.length > 0) {
-      return d3.select("#status").html("<h3>The word <span class=\"active\">" + id + "</span> is now active</h3>");
+      return d3.select("#status").html("<p>The word <span class=\"active\">" + id + "</span> is now active.</p>");
     } else {
-      return d3.select("#status").html("<h3>No word is active</h3>");
+      return d3.select("#status").html("<p>No word is active.</p>");
     }
   };
   //hover event
@@ -290,7 +290,7 @@ texts = [
     key: "dickinson",
     file: "top_dickinson.csv",
     name: "Emily Dickinson"
-  }, 
+  },
   {
     key: "whitman",
     file: "top_whitman.csv",
@@ -322,7 +322,6 @@ $(function() {
     location.replace("#");
     return location.search = encodeURIComponent(key);
   });
-  d3.select("#book-title").html(text.name);
+  d3.select("#author").html(text.name);
   return d3.csv("data/" + text.file, display);
 });
-
