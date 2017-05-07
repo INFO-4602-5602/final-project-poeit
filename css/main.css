@@ -17,10 +17,14 @@
 
 /* Vis Layout Styles */
 .vis-container {
-  border: 1px solid rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.3);
   margin: 1em auto;
 }
-
+.vis-desc {
+  font-style: italic;
+  margin: 0 auto;
+  padding: 1em 1em 0;
+}
 .vis-title {
   background-color: rgba(0, 0, 0, 0.05);
   font-family: 'Lato', 'Open Sans', sans-serif;
