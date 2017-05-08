@@ -299,29 +299,34 @@ texts = [
 ];
 
 //jQuery document ready.
-$(function() {
-  var display, key, plot, text;
-  plot = Bubbles();
-  display = function(data) {
-  	//console.log(data);
-    return plotData("#vis", data, plot);
-  };
-  key = decodeURIComponent(location.search).replace("?", "");
-  text = texts.filter(function(t) {
-    return t.key === key;
-  })[0];
-  if (!text) {
-    text = texts[0];
-  }
-  $("#text-select").val(key);
+$( document ).ready( function() {
+  loadBubbleChart();
+
+  $("#authorDropdown").on("change", function() {
+    loadBubbleChart();
+  });
+} );
+
+function loadBubbleChart() {
+  // clears previous bubble SVGs
+  d3.select("#vis").html("");
+
+  let plot = Bubbles();
+
+  let authorElement = document.getElementById('authorDropdown');
+  let selectedAuthor = authorElement.options[authorElement.selectedIndex].value;
+
+  text = _.find( texts, function( author ){
+    return author.key === selectedAuthor;
+  } );
+
   d3.select("#jitter").on("input", function() {
     return plot.jitter(parseFloat(this.output.value));
   });
-  d3.select("#text-select").on("change", function(e) {
-    key = $(this).val();
-    location.replace("#");
-    return location.search = encodeURIComponent(key);
-  });
+
+  d3.csv("data/" + text.file, function( d ){
+    return plotData("#vis", d, plot);
+  } );
+
   d3.select("#author").html(text.name);
-  return d3.csv("data/" + text.file, display);
-});
+}
