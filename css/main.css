@@ -40,9 +40,20 @@
   text-transform: uppercase;
 }
 
+/* Selection Buttons */
+.dropdown {
+  margin-right: 1em;
+}
+.selection-btns {
+  margin: 1em 0;
+}
+
 /* Basic Information */
 .info-block {
-  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-right: 1px solid rgba(0, 0, 0, 0.3);
+  padding: 0.5em 1em 1em;
+}
+.info-block--noborder {
   padding: 0.5em 1em 1em;
 }
 .info-content {

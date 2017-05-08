@@ -26,8 +26,25 @@
         <p class="page-subtitle">an exploratory poetry vis</p>
       </header>
 
+      <div class="row selection-btns">
+        <!-- Choose Author -->
+        <div class="dropdown">
+          <select class="btn btn-secondary" aria-labelledby="authorDropDownButton" id="authorDropdown">
+            <option class="dropdown-item" value="dickinson" selected="selected">Emily Dickinson</a>
+            <option class="dropdown-item" value="whitman">Walt Whitman</a>
+          </select>
+        </div>
+
+        <!-- Choose Poem -->
+        <div class="dropdown">
+          <select class="btn btn-secondary" aria-labelledby="poemDropDownButton" id="poemDropdown">
+          </select>
+        </div>
+      </div>
+
+
       <!-- Basic Information -->
-      <div class="row">
+      <div class="row vis-container">
         <span class="vis-title col-12">Basic Information</span>
         <div class="col-7 info-block">
           <span class="info-label">Title</span>
@@ -37,7 +54,7 @@
           <span class="info-label">Number of Lines</span>
           <div id="numLines" class="info-content"></div>
         </div>
-        <div class="col-3 info-block">
+        <div class="col-3 info-block--noborder">
           <span class="info-label">Average Line Length</span>
           <div id="avgLineLength" class="info-content"></div>
         </div>
@@ -54,8 +71,8 @@
       <div class="row vis-container">
         <span class="vis-title col-12">Bubble Frequency</span>
         <span class="vis-desc col-6">The most frequently used words by <span id="author"></span></span>
-        <div class="dropdown col-6 align-center">
-          <select id="text-select">
+        <div class="dropdown col-2">
+          <select class="btn btn-secondary" id="text-select">
             <option value="dickinson" class="dropdown-item">Emily Dickinson</option>
             <option value="whitman" class="dropdown-item">Walt Whitman</option>
           </select>
@@ -74,6 +91,7 @@
       </div>
 
     </div>
+    <script type="text/javascript" src="js/dropdownSelect.js"></script>
     <script type="text/javascript" src="js/poemInfo.js"></script>
     <script type="text/javascript" src="js/wordBlock.js"></script>
     <script type="text/javascript" src="js/bubble.js"></script>
