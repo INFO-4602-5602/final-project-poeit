@@ -80,7 +80,7 @@ function loadPoemInfo( author, title ){
 /* Loads word block vis of selected poem */
 function loadWordBlocks( author, title ){
   // clears any previous word block SVGs
-  d3.select("#wordBlockSvg").remove();
+  d3.select('#wordBlockSvg').remove();
 
   const poemTitle = title;
 
@@ -153,16 +153,18 @@ function loadSyllableGraph( author, title ){
     const lines      = poemData.lines;
     let wordData     = [];
     let syllableData = [];
+    let combinedData = {};
 
     const width     = 850;
-    const height    = _.size(lines) * 35;
+    const height    = 550;
+    var xOffset     = 195;
+    var yOffset     = 100;
     const barHeight = 15;
     const barWidth  = 30;
 
     // creates syllable array consisting of syllable counts per line
     _.forEach( lines, function( line ){
       wordArray = line.split(" ");
-      console.log(wordArray)
 
       lineSyllableLength = 0;
       _.forEach( wordArray, function( word ){
@@ -172,7 +174,65 @@ function loadSyllableGraph( author, title ){
       } );
 
       syllableData.push(lineSyllableLength)
-    } )
+    } );
+
+    // object where keys are poems lines & vals are syllable counts
+    combinedData = _.zipObject(lines, syllableData);
+
+    // Create svg to contain vis
+    var svg = d3.select( '#syllableGraph' ).append( 'svg:svg' )
+                                           .attr( 'width', width )
+                                           .attr( 'height', height );
+
+    // Define axes scale
+    var xScale = d3.scale.ordinal()
+                   .domain( _.keys(combinedData) )
+                   .rangePoints([xOffset, width], 0.5);
+
+    var yScale = d3.scale.linear()
+                         .domain( [0, d3.max( _.values(combinedData) )+10] )
+                         .range( [height - yOffset, 0] );
+
+    // Create axes
+    var xAxis = d3.svg.axis()
+                      .scale( xScale )
+                      .orient( 'bottom' )
+                      .ticks( 5 );
+    var xAxisG = svg.append( 'g' )
+                    .attr( 'class', 'axis' )
+                    .attr( 'transform', 'translate(0, ' + (height-yOffset-1) + ')' )
+                    .call( xAxis )
+                    .selectAll( 'text' )
+                      .style( 'text-anchor', 'end' )
+                      .attr( 'dx', '-.4em' )
+                      .attr( 'dy', '.075em' )
+                      .attr( 'transform', function(d) {
+                          return 'rotate(-25)'
+                      });
+
+    var yAxis = d3.svg.axis()
+                      .scale( yScale )
+                      .orient( 'left' );
+    var yAxisG = svg.append( 'g' )
+                    .attr( 'class', 'axis' )
+                    .attr( 'transform', 'translate(' + (xOffset) + ')' )
+                    .call( yAxis );
+    var yLabel = svg.append( 'text' )
+                    .attr( 'class', 'label' )
+                    .attr( 'transform', 'translate(' + (xOffset/2-90) + ')')
+                    .attr( 'y', height/3 )
+                    .style( 'font-size', '15px' )
+                    .text( 'Number of Syllables' );
+
+    // Create graph line
+    // var line = d3.svg.line()
+    //                  .x( function( d, i ){ return xScale(_.keys(combinedData)); } )
+    //                  .y( function( d ){ return yScale(d); } )
+    //                  .interpolate("linear");
+    // var lineG = svg.append( 'path' )
+    //                .attr( 'class', 'line' )
+    //                .attr( 'd', function(d){ return line( combinedData ) } )
+    //                .call(line);
   } );
 }
 
