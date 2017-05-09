@@ -9,6 +9,11 @@
 
 .line {
   fill: none;
-  stroke: steelblue;
+  stroke: rgb(177, 94, 111);
   stroke-width: 3px;
+}
+
+.inactive {
+    fill: #ff8042;
+    stroke: #ee611d;
 }

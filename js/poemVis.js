@@ -14,7 +14,7 @@ $( document ).ready( function() {
     let poemElement = document.getElementById('poemDropdown');
     let selectedPoem = poemElement.options[poemElement.selectedIndex].value;
 
-    loadPoemInfo(selectedAuthor, selectedPoem);
+    loadPoemInfo( selectedAuthor, selectedPoem );
     loadWordBlocks( selectedAuthor, selectedPoem );
     loadSyllableGraph( selectedAuthor, selectedPoem );
   } );
@@ -144,6 +144,9 @@ function loadWordBlocks( author, title ){
 
 /* Loads syllable graph selected poem */
 function loadSyllableGraph( author, title ){
+  // clears any previous word block SVGs
+  d3.select('#syllableSvg').remove();
+
   const poemTitle = title;
 
   d3.json( 'data/' + author + '.json', function( error, data ){
@@ -155,10 +158,11 @@ function loadSyllableGraph( author, title ){
     let syllableData = [];
     let combinedData = {};
 
-    const width     = 850;
+    const width     = 950;
     const height    = 550;
-    var xOffset     = 195;
-    var yOffset     = 100;
+    const xOffset   = 195;
+    const yOffset   = 100;
+    const margin    = 15;
     const barHeight = 15;
     const barWidth  = 30;
 
@@ -178,20 +182,28 @@ function loadSyllableGraph( author, title ){
 
     // object where keys are poems lines & vals are syllable counts
     combinedData = _.zipObject(lines, syllableData);
+    combinedData = _.map(combinedData, function(syl, line){
+      return {syllables: syl, lines: line}
+    } )
 
     // Create svg to contain vis
     var svg = d3.select( '#syllableGraph' ).append( 'svg:svg' )
                                            .attr( 'width', width )
-                                           .attr( 'height', height );
+                                           .attr( 'height', height )
+                                           .attr( 'id', 'syllableSvg' );
 
     // Define axes scale
     var xScale = d3.scale.ordinal()
-                   .domain( _.keys(combinedData) )
-                   .rangePoints([xOffset, width], 0.5);
+                   .domain( combinedData.map(function(d) {
+                     return d.lines
+                   }) )
+                   .rangePoints([xOffset, width - margin]);
 
     var yScale = d3.scale.linear()
-                         .domain( [0, d3.max( _.values(combinedData) )+10] )
-                         .range( [height - yOffset, 0] );
+                         .domain( [0, d3.max( combinedData.map(function(d) {
+                           return d.syllables
+                         } ) )+3] )
+                         .range( [height - yOffset, margin] );
 
     // Create axes
     var xAxis = d3.svg.axis()
@@ -203,6 +215,7 @@ function loadSyllableGraph( author, title ){
                     .attr( 'transform', 'translate(0, ' + (height-yOffset-1) + ')' )
                     .call( xAxis )
                     .selectAll( 'text' )
+                      .style( 'font-size', '12px' )
                       .style( 'text-anchor', 'end' )
                       .attr( 'dx', '-.4em' )
                       .attr( 'dy', '.075em' )
@@ -219,20 +232,30 @@ function loadSyllableGraph( author, title ){
                     .call( yAxis );
     var yLabel = svg.append( 'text' )
                     .attr( 'class', 'label' )
-                    .attr( 'transform', 'translate(' + (xOffset/2-90) + ')')
                     .attr( 'y', height/3 )
                     .style( 'font-size', '15px' )
-                    .text( 'Number of Syllables' );
+                    .text( '# Syllables' )
+                    .style( 'text-anchor', 'middle' )
+                    .attr( 'transform', function(d) {
+                        return 'rotate(-25)'
+                    });
+
+    var point = svg.selectAll( '.point' )
+                   .data( combinedData );
+    point.enter().append( 'svg:circle' );
+    point.attr( 'class', 'inactive' )
+         .attr( 'cx', function( d){ return xScale(d.lines); } )
+         .attr( 'cy', function( d ){ return yScale(d.syllables); } )
+         .attr( 'r', 4 );
 
     // Create graph line
-    // var line = d3.svg.line()
-    //                  .x( function( d, i ){ return xScale(_.keys(combinedData)); } )
-    //                  .y( function( d ){ return yScale(d); } )
-    //                  .interpolate("linear");
-    // var lineG = svg.append( 'path' )
-    //                .attr( 'class', 'line' )
-    //                .attr( 'd', function(d){ return line( combinedData ) } )
-    //                .call(line);
+    var line = d3.svg.line()
+                     .x( function( d){ return xScale(d.lines); } )
+                     .y( function( d ){ return yScale(d.syllables); } )
+                     .interpolate("linear");
+    var lineG = svg.append( 'path' )
+                   .attr( 'class', 'line' )
+                   .attr( 'd', function(d){ return line( combinedData ) } );
   } );
 }
 
