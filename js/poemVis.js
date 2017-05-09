@@ -16,6 +16,7 @@ $( document ).ready( function() {
 
     loadPoemInfo(selectedAuthor, selectedPoem);
     loadWordBlocks( selectedAuthor, selectedPoem );
+    loadSyllableGraph( selectedAuthor, selectedPoem );
   } );
 } );
 
@@ -42,8 +43,10 @@ function loadPoemDropdown(){
     let poemElement = document.getElementById('poemDropdown');
     let selectedPoem = poemElement.options[poemElement.selectedIndex].value;
 
+    // for the initial page load
     loadPoemInfo( selectedAuthor, selectedPoem );
     loadWordBlocks( selectedAuthor, selectedPoem );
+    loadSyllableGraph( selectedAuthor, selectedPoem );
   } );
 }
 
@@ -88,7 +91,7 @@ function loadWordBlocks( author, title ){
     const lines = poemData.lines;
     let wordData   = [];
 
-    const width     = 800;
+    const width     = 850;
     const height    = _.size(lines) * 35;
     const barHeight = 15;
     const barWidth  = 30;
@@ -137,4 +140,49 @@ function loadWordBlocks( author, title ){
                  } )
     } );
   } );
+}
+
+/* Loads syllable graph selected poem */
+function loadSyllableGraph( author, title ){
+  const poemTitle = title;
+
+  d3.json( 'data/' + author + '.json', function( error, data ){
+    const poemData = _.find( data, function( poem ){
+      return poem.title === poemTitle;
+    } );
+    const lines      = poemData.lines;
+    let wordData     = [];
+    let syllableData = [];
+
+    const width     = 850;
+    const height    = _.size(lines) * 35;
+    const barHeight = 15;
+    const barWidth  = 30;
+
+    // creates syllable array consisting of syllable counts per line
+    _.forEach( lines, function( line ){
+      wordArray = line.split(" ");
+      console.log(wordArray)
+
+      lineSyllableLength = 0;
+      _.forEach( wordArray, function( word ){
+        // strip punctuation
+        word = word.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
+        lineSyllableLength += countSyllables( word )
+      } );
+
+      syllableData.push(lineSyllableLength)
+    } )
+  } );
+}
+
+function countSyllables( word ){
+  if (word.length > 0) {
+    word = word.toLowerCase();
+    word = word.replace(/(?:[^laeiouy]es|[^laeiouy]e)$/, '');
+    word = word.replace(/^y/, '');
+    word = word.match(/[aeiouy]{1,2}/g);
+    return word ? word.length : 1;
+  }
+  return 0;
 }
